@@ -19,7 +19,7 @@ public class Program
         Critere critere = new(longueur, AjoutMajuscule, AjoutMinuscule, AjoutNombre, AjoutSymbole);
         ChoixUtilisateur();
         AjoutPremierElement(random);
-        MixerList();
+        AjoutDuReste();
         MelangerMdp(ListMotDePasseBrut);
     }
 
@@ -76,9 +76,9 @@ public class Program
         return ListMotDePasseBrut;
     }
 
-    public static void MixerList()
+    public static void AjoutDuReste()
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < (longueur - ListMotDePasseBrut.Count); i++)
         {
             if (AjoutMajuscule)
                 ListMotDePasseBrut.Add(data.LettreMinuscule[random.Next(1, data.LettreMinuscule.Count())]);
