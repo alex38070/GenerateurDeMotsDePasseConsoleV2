@@ -26,9 +26,9 @@ internal class Data
        "/", "!", "?"
     };
 
-    public const string Lowercase = "abcdefghijklmnopqrstuvwxyz";  // Minuscules
-    public const string Uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";  // Majuscules
-    public const string Digits = "0123456789";                     // Chiffres
-    public const string Symbols = "!@#$%^&*_-+=";                  // Symboles
+    //public const string Lowercase = "abcdefghijklmnopqrstuvwxyz";  // Minuscules
+    //public const string Uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";  // Majuscules
+    //public const string Digits = "0123456789";                     // Chiffres
+    //public const string Symbols = "!@#$%^&*_-+=";                  // Symboles
 
 }
