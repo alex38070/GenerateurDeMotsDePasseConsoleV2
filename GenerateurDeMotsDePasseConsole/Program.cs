@@ -17,7 +17,7 @@
 *      
  * 
  */
-namespace GenerateurDeMotsDePasseConsole;
+namespace GenerateurDeMotsDePasseConsoleV2;
 
 public class Program
 {

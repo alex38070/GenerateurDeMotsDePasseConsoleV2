@@ -1,4 +1,4 @@
-﻿namespace GenerateurDeMotsDePasseConsole;
+﻿namespace GenerateurDeMotsDePasseConsoleV2;
 
 internal static class UtilitairesConsole
 {

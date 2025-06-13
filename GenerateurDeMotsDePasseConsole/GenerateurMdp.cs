@@ -1,41 +1,27 @@
-﻿namespace GenerateurDeMotsDePasseConsole;
+﻿namespace GenerateurDeMotsDePasseConsoleV2;
 
 internal class GenerateurMdp
 {
-    private List<string> MotDePasseAMixer = new List<string>();
+    private List<string> motDePasseAMixer = new List<string>();
     private Data data = new();
+    Random random = new();
 
     int nombreDeChoixUtilisateur = 0; // besoin pour la methode modulo
-    bool ajoutMinuscule = false;
-    bool ajoutMajuscule = false;
-    bool ajoutNombre = false;
-    bool ajoutSymbole = false;
     string choixUtilisateur = string.Empty;
 
     public void Lancer()
     {
-        GenerateurDeMotDePasse(MotDePasseAMixer);
+        GenerateurDeMotDePasse(motDePasseAMixer);
     }
 
     private void GenerateurDeMotDePasse(List<string> MotDePasseAMixer)
     {
         do
         {
-            ajoutMinuscule = false;
-            ajoutMajuscule = false;
-            ajoutNombre = false;
-            ajoutSymbole = false;
-
-            MotDePasseAMixer.Clear();
             MotDePasseAMixer.Clear();
             int saisieNombre = UtilitairesConsole.DemanderNombre(4, 40); // Choix nombre utilisateur
-            int nombreAleatoire = UtilitairesConsole.NombreAleatoire(1, 4); // Choix nombre aleatoire
-
-            ChoixTypesUtilisateur(saisieNombre, MotDePasseAMixer, nombreAleatoire);
-
-            MixerList(nombreAleatoire, saisieNombre);
-
-            Console.WriteLine();
+            AjoutPremierElement(random);
+            AjoutElementsAleatoire(saisieNombre, nombreDeChoixUtilisateur);
             MelangerMdp(MotDePasseAMixer);
 
             do
@@ -51,19 +37,18 @@ internal class GenerateurMdp
 
                 if (choixUtilisateur == "1")
                 {
-                    MotDePasseAMixer.Clear();
-                    MixerList(nombreAleatoire, saisieNombre);
+                    AjoutPremierElement(random);
+                    AjoutElementsAleatoire(saisieNombre, nombreDeChoixUtilisateur);
                     MelangerMdp(MotDePasseAMixer);
                 }
 
             } while (choixUtilisateur == "1");
 
         } while (choixUtilisateur == "2");
-        //Environment.Exit(0);
         Console.WriteLine("Merci au revoir");
     }
 
-    private void ChoixTypesUtilisateur(int saisieNombre, List<string> MotDePasseAMixer, int nombreAleatoire)  // interdire jamais o parametre
+    public List<string> AjoutPremierElement(Random random)
     {
         bool choixVide = true;
         do
@@ -72,25 +57,27 @@ internal class GenerateurMdp
             Console.Write("\r\nInclure des lettres minuscules ? (o/n) : ");
             if ((Console.ReadLine() == "o"))
             {
-                ajoutMinuscule = true;
+                motDePasseAMixer.Add(data.LettreMinuscule[random.Next(1, data.LettreMinuscule.Count())]);
                 nombreDeChoixUtilisateur++;
+
             }
             Console.Write("Inclure des lettres majuscules ? (o/n) : ");
             if ((Console.ReadLine() == "o"))
             {
-                ajoutMajuscule = true;
+                motDePasseAMixer.Add(data.LettreMajuscule[random.Next(1, data.LettreMajuscule.Count())]);
                 nombreDeChoixUtilisateur++;
             }
             Console.Write("Inclure des chiffres ? (o/n) : ");
             if ((Console.ReadLine() == "o"))
             {
-                ajoutNombre = true;
+                motDePasseAMixer.Add(data.Nombres[random.Next(1, data.Nombres.Count())]);
                 nombreDeChoixUtilisateur++;
+
             }
             Console.Write("Inclure des symboles ? (o/n) : ");
             if ((Console.ReadLine() == "o"))
             {
-                ajoutSymbole = true;
+                motDePasseAMixer.Add(data.Symbole[random.Next(1, data.Symbole.Count())]);
                 nombreDeChoixUtilisateur++;
             }
             choixVide = false;
@@ -102,62 +89,79 @@ internal class GenerateurMdp
             }
 
         } while (choixVide);
+
+        return motDePasseAMixer;
     }
 
-    public void MixerList(int nombreAleatoire, int saisieNombre)
+    public void AjoutElementsAleatoire(int saisieNombre, int nombreDeChoixUtilisateur)
     {
-        int modulo = (saisieNombre % nombreDeChoixUtilisateur);
-        int resultat = (nombreDeChoixUtilisateur != 0) ? (saisieNombre / nombreDeChoixUtilisateur) : 1;
-
-        if (ajoutMinuscule)
-            IntegrerToutesLesListes(MotDePasseAMixer, ElementsAleatoires(data.LettreMinuscule, resultat));
-        if (ajoutMajuscule)
-            IntegrerToutesLesListes(MotDePasseAMixer, ElementsAleatoires(data.LettreMajuscule, resultat));
-        if (ajoutNombre)
-            IntegrerToutesLesListes(MotDePasseAMixer, ElementsAleatoires(data.Nombres, resultat));
-        if (ajoutSymbole)
-            IntegrerToutesLesListes(MotDePasseAMixer, ElementsAleatoires(data.Symbole, resultat));
-
-        switch (nombreAleatoire)
+        for (int i = 0; i < saisieNombre - nombreDeChoixUtilisateur; i++)
         {
-            case 1:
-                IntegrerToutesLesListes(MotDePasseAMixer, ElementsAleatoires(data.LettreMinuscule, modulo));
-                break;
+            int nombreAleatoire = random.Next(1, 4);
 
-            case 2:
-                IntegrerToutesLesListes(MotDePasseAMixer, ElementsAleatoires(data.LettreMajuscule, modulo));
-                break;
+            switch (nombreAleatoire)
+            {
+                case 1:
+                    motDePasseAMixer.Add(data.LettreMinuscule[random.Next(1, data.LettreMinuscule.Count())]);
+                    break;
 
-            case 3:
-                IntegrerToutesLesListes(MotDePasseAMixer, ElementsAleatoires(data.Nombres, modulo));
-                break;
+                case 2:
+                    motDePasseAMixer.Add(data.LettreMajuscule[random.Next(1, data.LettreMajuscule.Count())]);
+                    break;
 
-            case 4:
-                IntegrerToutesLesListes(MotDePasseAMixer, ElementsAleatoires(data.Symbole, modulo));
-                break;
+                case 3:
+                    motDePasseAMixer.Add(data.Nombres[random.Next(1, data.Nombres.Count())]);
+                    break;
+
+                case 4:
+                    motDePasseAMixer.Add(data.Symbole[random.Next(1, data.Symbole.Count())]);
+                    break;
+            }
         }
     }
 
-    private List<string> ElementsAleatoires(List<string> ListAleatoire, int nombreMax)
-    {
-        List<string> ElementsAleatoires = new List<string>();
 
-        for (int i = 0; i < nombreMax; i++)
-        {
-            int lettreAleatoire = UtilitairesConsole.NombreAleatoire(0, ListAleatoire.Count());
-            ElementsAleatoires.Add(ListAleatoire[lettreAleatoire]);
-        }
-        return ElementsAleatoires;
-    }
 
-    private List<string> IntegrerToutesLesListes(List<string> MotDePasseMixer, List<string> ListAleatoire)
-    {
-        foreach (string Element in ListAleatoire)
-        {
-            MotDePasseMixer.Add(Element);
-        }
-        return MotDePasseMixer;
-    }
+    //private void ChoixTypesUtilisateur(int saisieNombre, List<string> MotDePasseAMixer, int nombreAleatoire)  // interdire jamais o parametre
+    //{
+    //}
+
+    //public void MixerList(int nombreAleatoire, int saisieNombre)
+    //{
+    //    int modulo = (saisieNombre % nombreDeChoixUtilisateur);
+    //    int resultat = (nombreDeChoixUtilisateur != 0) ? (saisieNombre / nombreDeChoixUtilisateur) : 1;
+
+    //    if (ajoutMinuscule)
+    //        IntegrerToutesLesListes(motDePasseAMixer, ElementsAleatoires(data.LettreMinuscule, resultat));
+    //    if (ajoutMajuscule)
+    //        IntegrerToutesLesListes(motDePasseAMixer, ElementsAleatoires(data.LettreMajuscule, resultat));
+    //    if (ajoutNombre)
+    //        IntegrerToutesLesListes(motDePasseAMixer, ElementsAleatoires(data.Nombres, resultat));
+    //    if (ajoutSymbole)
+    //        IntegrerToutesLesListes(motDePasseAMixer, ElementsAleatoires(data.Symbole, resultat));
+
+    //}
+
+    //private List<string> ElementsAleatoires(List<string> ListAleatoire, int nombreMax)
+    //{
+    //    List<string> ElementsAleatoires = new List<string>();
+
+    //    for (int i = 0; i < nombreMax; i++)
+    //    {
+    //        int lettreAleatoire = UtilitairesConsole.NombreAleatoire(0, ListAleatoire.Count());
+    //        ElementsAleatoires.Add(ListAleatoire[lettreAleatoire]);
+    //    }
+    //    return ElementsAleatoires;
+    //}
+
+    //private List<string> IntegrerToutesLesListes(List<string> MotDePasseMixer, List<string> ListAleatoire)
+    //{
+    //    foreach (string Element in ListAleatoire)
+    //    {
+    //        MotDePasseMixer.Add(Element);
+    //    }
+    //    return MotDePasseMixer;
+    //}
 
     private void MelangerMdp(List<string> MotDePasseAMixer)
     {
