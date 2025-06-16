@@ -54,7 +54,7 @@ internal class GenerateurMdp
 
         } while (_choixUtilisateur == "2");
         //Environment.Exit(0);
-        Console.WriteLine("Merci au revoir");
+        Console.WriteLine("\r\nMerci au revoir");
     }
 
     private List<string> AjoutPremierElement(Random random, Critere critere, List<string> _listMotDePasseBrut)
@@ -102,7 +102,7 @@ internal class GenerateurMdp
     private void MelangerMdp(List<string> MotDePasseAMixer)
     {
         IOrderedEnumerable<string> motDePasseMelanger = MotDePasseAMixer.OrderBy(item => Random.Shared.Next());
-        Console.Write("Le mot de passe généré est : ");
+        Console.Write("\r\nLe mot de passe généré est : ");
 
         foreach (string CaractereMdp in motDePasseMelanger)
             Console.Write(CaractereMdp);
