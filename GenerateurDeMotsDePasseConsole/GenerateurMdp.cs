@@ -30,7 +30,7 @@ internal class GenerateurMdp
             bool ajoutMajuscule = UtilitairesConsole.ChoixAjoutMajuscule();
             bool ajoutMinuscule = UtilitairesConsole.ChoixAjoutMinuscule();
             bool ajoutNombre = UtilitairesConsole.ChoixAjoutchiffres();
-            bool ajoutSymbole = UtilitairesConsole.ChoixAjoutSymbole();
+            bool ajoutSymbole = UtilitairesConsole.ChoixAjoutSymbole(ajoutMajuscule, ajoutMinuscule, ajoutNombre);
 
             if (ajoutMajuscule != true && ajoutMinuscule != true && ajoutNombre != true)
                 ajoutSymbole = true;

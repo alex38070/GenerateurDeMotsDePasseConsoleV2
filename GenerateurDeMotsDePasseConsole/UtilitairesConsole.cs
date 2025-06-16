@@ -51,11 +51,15 @@ internal static class UtilitairesConsole
             return true;
         else return false;
     }
-    internal static bool ChoixAjoutSymbole()
+    internal static bool ChoixAjoutSymbole(bool ajoutMajuscule, bool ajoutMinuscule, bool ajoutNombre)
     {
+        if (ajoutMajuscule != true && ajoutMinuscule != true && ajoutNombre != true)
+            return true;
+
         Console.Write("Inclure des symboles ? (o/n) : ");
         if (Console.ReadLine() == "o")
             return true;
+
         else return false;
     }
 }
