@@ -18,14 +18,12 @@ internal class GenerateurMdp
         string _choixUtilisateur = string.Empty;
         do
         {
-
             int longueur = UtilitairesConsole.DemanderLongueur(4, 40); // Choix nombre utilisateur
 
             bool ajoutMajuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres majuscules ? (o/n) : ");
             bool ajoutMinuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres minuscules ? (o/n) : ");
             bool ajoutChiffre = UtilitairesConsole.DemanderOuiNon("Inclure des chiffres ? (o/n) : ");
             bool ajoutSymbole = UtilitairesConsole.DemanderOuiNon("Inclure des symboles ? (o/n) : ");
-
             Critere critere = new(longueur, ajoutMajuscule, ajoutMinuscule, ajoutChiffre, ajoutSymbole);
 
             AjoutPremierElement(_random, critere, _listMotDePasseBrut);
