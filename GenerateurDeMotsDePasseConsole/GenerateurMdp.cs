@@ -4,47 +4,37 @@ namespace GenerateurDeMotsDePasseConsole;
 
 internal class GenerateurMdp
 {
-    internal bool ChoixVide { get; private set; }
-    internal string ChoixSaisie { get; private set; } = string.Empty;
-    public List<string> ListMotDePasseBrut { get; private set; } = new List<string>();
-    internal int NombreDeChoixUtilisateur { get; private set; } = 0; // besoin pour la methode modulo
-    private Data? data { get; set; } = new();
-    private Random? random { get; set; } = new();
-
-
+    //internal bool ChoixVide { get; private set; }
+    //internal string ChoixSaisie { get; private set; } = string.Empty;
+    //internal int NombreDeChoixUtilisateur { get; private set; } = 0; // besoin pour la methode modulo
     //private List<string> MotDePasseAMixer = new List<string>();
 
-    string choixUtilisateur = string.Empty;
+    public List<string> _listMotDePasseBrut = new();
+    private readonly Data? _data = new(); // readonly impossible de la modifier.
+    private readonly Random? _random = new(); // readonly impossible de la modifier.
+    string _choixUtilisateur = string.Empty;
+
 
     public void Lancer()
     {
-        GenerateurDeMotDePasse(ListMotDePasseBrut);
+        GenerateurDeMotDePasse(_listMotDePasseBrut);
     }
 
     private void GenerateurDeMotDePasse(List<string> ListMotDePasseBrut)
     {
         do
         {
+
             int longueur = UtilitairesConsole.DemanderLongueur(4, 40); // Choix nombre utilisateur
 
-            bool ajoutMajuscule = UtilitairesConsole.ChoixAjoutMajuscule();
-            bool ajoutMinuscule = UtilitairesConsole.ChoixAjoutMinuscule();
-            bool ajoutNombre = UtilitairesConsole.ChoixAjoutchiffres();
-            bool ajoutSymbole = UtilitairesConsole.ChoixAjoutSymbole(ajoutMajuscule, ajoutMinuscule, ajoutNombre);
+            bool ajoutMajuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres majuscules ? (o/n) : ");
+            bool ajoutMinuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres minuscules ? (o/n) : ");
+            bool ajoutChiffre = UtilitairesConsole.DemanderOuiNon("Inclure des chiffres ? (o/n) : ");
+            bool ajoutSymbole = UtilitairesConsole.DemanderOuiNon("Inclure des symboles ? (o/n) : ");
 
-            //if (ajoutMajuscule != true && ajoutMinuscule != true && ajoutNombre != true)
-            //    ajoutSymbole = true;
+            Critere critere = new(longueur, ajoutMajuscule, ajoutMinuscule, ajoutChiffre, ajoutSymbole);
 
-            Critere critere = new(longueur, ajoutMajuscule, ajoutMinuscule, ajoutNombre, ajoutSymbole);
-
-            Console.WriteLine(longueur);
-            Console.WriteLine(ajoutMajuscule);
-            Console.WriteLine(ajoutMinuscule);
-            Console.WriteLine(ajoutNombre);
-            Console.WriteLine(ajoutSymbole);
-
-
-            AjoutPremierElement(random, critere, ListMotDePasseBrut);
+            AjoutPremierElement(_random, critere, ListMotDePasseBrut);
             AjoutDuReste(critere);
             MelangerMdp(ListMotDePasseBrut);
 
@@ -57,18 +47,18 @@ internal class GenerateurMdp
                 Console.WriteLine("3. Non, quitter l'application");
 
                 Console.Write("\r\nChoix : ");
-                choixUtilisateur = UtilitairesConsole.DemanderString();
+                _choixUtilisateur = UtilitairesConsole.DemanderRejouer();
 
-                if (choixUtilisateur == "1")
+                if (_choixUtilisateur == "1")
                 {
-                    AjoutPremierElement(random, critere, ListMotDePasseBrut);
+                    AjoutPremierElement(_random, critere, ListMotDePasseBrut);
                     AjoutDuReste(critere);
                     MelangerMdp(ListMotDePasseBrut);
                 }
 
-            } while (choixUtilisateur == "1");
+            } while (_choixUtilisateur == "1");
 
-        } while (choixUtilisateur == "2");
+        } while (_choixUtilisateur == "2");
         //Environment.Exit(0);
         Console.WriteLine("Merci au revoir");
     }
@@ -76,43 +66,38 @@ internal class GenerateurMdp
     public List<string> AjoutPremierElement(Random random, Critere critere, List<string> ListMotDePasseBrut)
     {
         if (critere.AjoutMajuscule)
-            ListMotDePasseBrut.Add(data.LettreMinuscule[random.Next(1, data.LettreMinuscule.Count())]);
+            ListMotDePasseBrut.Add(_data.LettreMajuscule[random.Next(1, _data.LettreMajuscule.Count())]);
         if (critere.AjoutMinuscule)
-            ListMotDePasseBrut.Add(data.LettreMajuscule[random.Next(1, data.LettreMajuscule.Count())]);
+            ListMotDePasseBrut.Add(_data.LettreMinuscule[random.Next(1, _data.LettreMinuscule.Count())]);
+        if (critere.AjoutChiffre)
+            ListMotDePasseBrut.Add(_data.Nombres[random.Next(1, _data.Nombres.Count())]);
         if (critere.AjoutSymbole)
-            ListMotDePasseBrut.Add(data.Nombres[random.Next(1, data.Nombres.Count())]);
-        if (critere.AjoutNombre)
-            ListMotDePasseBrut.Add(data.Symbole[random.Next(1, data.Symbole.Count())]);
+            ListMotDePasseBrut.Add(_data.Symbole[random.Next(1, _data.Symbole.Count())]);
         return ListMotDePasseBrut;
     }
 
     public List<string> AjoutDuReste(Critere critere)
     {
-        int NombreDeChoixUtilisateur = 0;
-        int modulo = (critere.Longueur % NombreDeChoixUtilisateur);
-        int resultat = (NombreDeChoixUtilisateur != 0) ? (critere.Longueur / NombreDeChoixUtilisateur) : 1;
-
         if (critere.AjoutMajuscule == true)
-            NombreDeChoixUtilisateur++;
+            _listMotDePasseBrut.Add(_data.LettreMajuscule[_random.Next(1, _data.LettreMajuscule.Count())]);
 
         if (critere.AjoutMinuscule == true)
-            NombreDeChoixUtilisateur++;
+            _listMotDePasseBrut.Add(_data.LettreMinuscule[_random.Next(1, _data.LettreMinuscule.Count())]);
 
-        if (critere.AjoutNombre == true)
-            NombreDeChoixUtilisateur++;
+        if (critere.AjoutChiffre == true)
+            _listMotDePasseBrut.Add(_data.Nombres[_random.Next(1, _data.Nombres.Count())]);
 
         if (critere.AjoutSymbole == true)
-            NombreDeChoixUtilisateur++;
+            _listMotDePasseBrut.Add(_data.Symbole[_random.Next(1, _data.Symbole.Count())]);
 
-        if (critere.AjoutMajuscule)
-            ListMotDePasseBrut.Add(data.LettreMinuscule[random.Next(1, data.LettreMinuscule.Count())]);
-        if (critere.AjoutMinuscule)
-            ListMotDePasseBrut.Add(data.LettreMajuscule[random.Next(1, data.LettreMajuscule.Count())]);
-        if (critere.AjoutSymbole)
-            ListMotDePasseBrut.Add(data.Nombres[random.Next(1, data.Nombres.Count())]);
-        if (critere.AjoutNombre)
-            ListMotDePasseBrut.Add(data.Symbole[random.Next(1, data.Symbole.Count())]);
-        return ListMotDePasseBrut;
+        return _listMotDePasseBrut;
+        //if (critere.AjoutMajuscule)
+        //if (critere.AjoutMinuscule)
+        //    _listMotDePasseBrut.Add(data.LettreMajuscule[random.Next(1, data.LettreMajuscule.Count())]);
+        //if (critere.AjoutSymbole)
+        //    _listMotDePasseBrut.Add(data.Nombres[random.Next(1, data.Nombres.Count())]);
+        //if (critere.AjoutChiffre)
+        //    _listMotDePasseBrut.Add(data.Symbole[random.Next(1, data.Symbole.Count())]);
     }
 
     private void MelangerMdp(List<string> MotDePasseAMixer)

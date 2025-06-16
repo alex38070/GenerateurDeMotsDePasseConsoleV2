@@ -14,7 +14,7 @@ internal static class UtilitairesConsole
         }
     }
 
-    internal static string DemanderString() // Choix nombre non converti
+    internal static string DemanderRejouer() // Choix nombre non converti
     {
         while (true)
         {
@@ -25,39 +25,11 @@ internal static class UtilitairesConsole
         }
     }
 
-    internal static int NombreAleatoire(int min, int max) // Nombre aleatoire entre min et max
+    internal static bool DemanderOuiNon(string message)
     {
-        return Random.Shared.Next(min, max);
-    }
-
-    internal static bool ChoixAjoutMajuscule()
-    {
-        Console.Write("\r\nInclure des lettres majuscules ? (o/n) : ");
+        Console.Write($"\r\n{message}");
         if (Console.ReadLine() == "o")
             return true;
         else return false;
-    }
-    internal static bool ChoixAjoutMinuscule()
-    {
-        Console.Write("Inclure des lettres minuscules ? (o/n) : ");
-        if (Console.ReadLine() == "o")
-            return true;
-        else return false;
-    }
-    internal static bool ChoixAjoutchiffres()
-    {
-        Console.Write("Inclure des chiffres ? (o/n) : ");
-        if (Console.ReadLine() == "o")
-            return true;
-        else return false;
-    }
-    internal static bool ChoixAjoutSymbole(bool ajoutMajuscule, bool ajoutMinuscule, bool ajoutNombre)
-    {
-
-        Console.Write("Inclure des symboles ? (o/n) : ");
-        if (Console.ReadLine() == "o" || ajoutMajuscule != true && ajoutMinuscule != true && ajoutNombre != true)
-            return true;
-        else return false;
-
     }
 }

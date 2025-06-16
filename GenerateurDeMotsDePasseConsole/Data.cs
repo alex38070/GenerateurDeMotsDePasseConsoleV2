@@ -23,7 +23,7 @@ internal class Data
 
     public List<string> Symbole = new List<string>
     {
-       "/", "!", "?"
+       "/", "!", "+", "?", "-" , "_" , "." , ",", "&", "$", "*", ":", ";", "<", "=",">"
     };
 
     //public const string Lowercase = "abcdefghijklmnopqrstuvwxyz";  // Minuscules
