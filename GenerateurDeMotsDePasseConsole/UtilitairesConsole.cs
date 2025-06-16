@@ -2,7 +2,7 @@
 
 internal static class UtilitairesConsole
 {
-    internal static int DemanderNombre(int min, int max) // Choix nombre utilisateur
+    internal static int DemanderLongueur(int min, int max) // Choix nombre utilisateur
     {
         while (true)
         {
@@ -28,5 +28,34 @@ internal static class UtilitairesConsole
     internal static int NombreAleatoire(int min, int max) // Nombre aleatoire entre min et max
     {
         return Random.Shared.Next(min, max);
+    }
+
+    internal static bool ChoixAjoutMajuscule()
+    {
+        Console.Write("\r\nInclure des lettres majuscules ? (o/n) : ");
+        if (Console.ReadLine() == "o")
+            return true;
+        else return false;
+    }
+    internal static bool ChoixAjoutMinuscule()
+    {
+        Console.Write("Inclure des lettres minuscules ? (o/n) : ");
+        if (Console.ReadLine() == "o")
+            return true;
+        else return false;
+    }
+    internal static bool ChoixAjoutchiffres()
+    {
+        Console.Write("Inclure des chiffres ? (o/n) : ");
+        if (Console.ReadLine() == "o")
+            return true;
+        else return false;
+    }
+    internal static bool ChoixAjoutSymbole()
+    {
+        Console.Write("Inclure des symboles ? (o/n) : ");
+        if (Console.ReadLine() == "o")
+            return true;
+        else return false;
     }
 }
