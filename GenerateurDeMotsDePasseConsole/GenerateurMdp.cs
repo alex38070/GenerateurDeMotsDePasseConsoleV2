@@ -32,10 +32,17 @@ internal class GenerateurMdp
             bool ajoutNombre = UtilitairesConsole.ChoixAjoutchiffres();
             bool ajoutSymbole = UtilitairesConsole.ChoixAjoutSymbole(ajoutMajuscule, ajoutMinuscule, ajoutNombre);
 
-            if (ajoutMajuscule != true && ajoutMinuscule != true && ajoutNombre != true)
-                ajoutSymbole = true;
+            //if (ajoutMajuscule != true && ajoutMinuscule != true && ajoutNombre != true)
+            //    ajoutSymbole = true;
 
             Critere critere = new(longueur, ajoutMajuscule, ajoutMinuscule, ajoutNombre, ajoutSymbole);
+
+            Console.WriteLine(longueur);
+            Console.WriteLine(ajoutMajuscule);
+            Console.WriteLine(ajoutMinuscule);
+            Console.WriteLine(ajoutNombre);
+            Console.WriteLine(ajoutSymbole);
+
 
             AjoutPremierElement(random, critere, ListMotDePasseBrut);
             AjoutDuReste(critere);
@@ -79,9 +86,12 @@ internal class GenerateurMdp
         return ListMotDePasseBrut;
     }
 
-    public void AjoutDuReste(Critere critere)
+    public List<string> AjoutDuReste(Critere critere)
     {
         int NombreDeChoixUtilisateur = 0;
+        int modulo = (critere.Longueur % NombreDeChoixUtilisateur);
+        int resultat = (NombreDeChoixUtilisateur != 0) ? (critere.Longueur / NombreDeChoixUtilisateur) : 1;
+
         if (critere.AjoutMajuscule == true)
             NombreDeChoixUtilisateur++;
 
@@ -94,25 +104,15 @@ internal class GenerateurMdp
         if (critere.AjoutSymbole == true)
             NombreDeChoixUtilisateur++;
 
-        int nombreAleatoire = random.Next(1, 5);
-
-        int reste = critere.Longueur - NombreDeChoixUtilisateur;
-        //int modulo = ()
-        Console.WriteLine(ListMotDePasseBrut.Count);
-        do
-        {
-            UtilitairesConsole.NombreAleatoire(1, 4);
-            if (critere.AjoutMajuscule && nombreAleatoire == 1)
-                ListMotDePasseBrut.Add(data.LettreMinuscule[random.Next(1, data.LettreMinuscule.Count())]);
-            if (critere.AjoutMinuscule && nombreAleatoire == 2)
-                ListMotDePasseBrut.Add(data.LettreMajuscule[random.Next(1, data.LettreMajuscule.Count())]);
-            if (critere.AjoutMinuscule && nombreAleatoire == 3)
-                ListMotDePasseBrut.Add(data.Nombres[random.Next(1, data.Nombres.Count())]);
-            if (critere.AjoutSymbole && nombreAleatoire == 4)
-                ListMotDePasseBrut.Add(data.Symbole[random.Next(1, data.Symbole.Count())]);
-
-        } while (!(critere.Longueur == ListMotDePasseBrut.Count));
-        Console.WriteLine(ListMotDePasseBrut.Count);
+        if (critere.AjoutMajuscule)
+            ListMotDePasseBrut.Add(data.LettreMinuscule[random.Next(1, data.LettreMinuscule.Count())]);
+        if (critere.AjoutMinuscule)
+            ListMotDePasseBrut.Add(data.LettreMajuscule[random.Next(1, data.LettreMajuscule.Count())]);
+        if (critere.AjoutSymbole)
+            ListMotDePasseBrut.Add(data.Nombres[random.Next(1, data.Nombres.Count())]);
+        if (critere.AjoutNombre)
+            ListMotDePasseBrut.Add(data.Symbole[random.Next(1, data.Symbole.Count())]);
+        return ListMotDePasseBrut;
     }
 
     private void MelangerMdp(List<string> MotDePasseAMixer)
@@ -136,8 +136,6 @@ internal class GenerateurMdp
 
 //public void MixerList(int saisieNombre, Critere critere)
 //{
-//    int modulo = (saisieNombre % NombreDeChoixUtilisateur);
-//    int resultat = (NombreDeChoixUtilisateur != 0) ? (saisieNombre / NombreDeChoixUtilisateur) : 1;
 
 //    if (critere.AjoutMinuscule)
 //        IntegrerToutesLesListes(ListMotDePasseBrut, ElementsAleatoires(data.LettreMinuscule, resultat));
