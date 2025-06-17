@@ -8,7 +8,7 @@ internal static class UtilitairesConsole
         int nombre;
         do
         {
-            WriteEnCouleur($"Longueur du mot de passe souhaitée ({min}-{max}) : ", ConsoleColor.Blue);
+            WriteCouleur($"Longueur du mot de passe souhaitée ({min}-{max}) : ", ConsoleColor.Blue);
             string saisie = Console.ReadLine() ?? string.Empty;
 
             Juste = (int.TryParse(saisie, out nombre) && nombre >= min && nombre <= max);
@@ -55,28 +55,25 @@ internal static class UtilitairesConsole
 
     internal static bool DemanderOuiNon(string message)
     {
-        WriteEnCouleur(message, ConsoleColor.Blue);
+        WriteCouleur(message, ConsoleColor.Blue);
 
         if (Console.ReadLine() == "o")
-        {
             return true;
-        }
 
         return false;
-
     }
 
-    internal static void WriteEnCouleur(string texte, ConsoleColor couleur)
+    internal static void WriteCouleur(string texte, ConsoleColor couleur)
     {
-        var couleurOriginale = Console.ForegroundColor;
+        ConsoleColor couleurOriginale = Console.ForegroundColor;
         Console.ForegroundColor = couleur;
         Console.Write(texte);
         Console.ForegroundColor = couleurOriginale;
     }
 
-    internal static void WriteLineEnCouleur(string texte, ConsoleColor couleur)
+    internal static void WriteLineCouleur(string texte, ConsoleColor couleur)
     {
-        var couleurOriginale = Console.ForegroundColor;
+        ConsoleColor couleurOriginale = Console.ForegroundColor;
         Console.ForegroundColor = couleur;
         Console.WriteLine(texte);
         Console.ForegroundColor = couleurOriginale;
