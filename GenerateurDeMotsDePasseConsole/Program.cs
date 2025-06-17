@@ -1,6 +1,4 @@
-﻿using GenerateurDeMotsDePasseConsole;
-
-namespace GenerateurDeMotsDePasseConsoleV2;
+﻿namespace GenerateurDeMotsDePasseConsoleV2;
 
 public class Program
 {

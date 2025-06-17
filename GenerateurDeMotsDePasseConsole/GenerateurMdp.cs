@@ -1,12 +1,13 @@
-﻿using GenerateurDeMotsDePasseConsoleV2;
-
-namespace GenerateurDeMotsDePasseConsole;
-
+﻿namespace GenerateurDeMotsDePasseConsoleV2;
 internal class GenerateurMdp
 {
-    private readonly Data? _data = new(); // readonly impossible de la modifier.
-    private readonly Random? _random = new(); // readonly impossible de la modifier.
-    public List<string> _listMotDePasseBrut = new();
+    private readonly Data _data = new(); // readonly impossible de la modifier.
+    private readonly Random _random = new(); // readonly impossible de la modifier.
+    private readonly List<string> _listMotDePasseBrut = [];
+    bool ajoutMajuscule = false;
+    bool ajoutMinuscule = false;
+    bool ajoutChiffre = false;
+    bool ajoutSymbole = false;
 
     public void Lancer()
     {
@@ -15,20 +16,22 @@ internal class GenerateurMdp
 
     private void GenerateurDeMotDePasse()
     {
+
         string _choixUtilisateur = string.Empty;
 
         int longueur = UtilitairesConsole.DemanderLongueur(4, 40); // Choix nombre utilisateur
 
-        bool ajoutMajuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres majuscules ? (o/n) : ");
-        bool ajoutMinuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres minuscules ? (o/n) : ");
-        bool ajoutChiffre = UtilitairesConsole.DemanderOuiNon("Inclure des chiffres ? (o/n) : ");
-        bool ajoutSymbole = UtilitairesConsole.DemanderOuiNon("Inclure des symboles ? (o/n) : ");
         do
         {
             ajoutMajuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres majuscules ? (o/n) : ");
             ajoutMinuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres minuscules ? (o/n) : ");
-            ajoutChiffre = UtilitairesConsole.DemanderOuiNon("Inclure des chiffres ? (o/n) : ");
-            ajoutSymbole = UtilitairesConsole.DemanderOuiNon("Inclure des symboles ? (o/n) : ");
+            ajoutChiffre = UtilitairesConsole.DemanderOuiNon("     Inclure des chiffres ?      (o/n) : ");
+            ajoutSymbole = UtilitairesConsole.DemanderOuiNon("     Inclure des symboles ?      (o/n) : ");
+
+            //Console.WriteLine(ajoutMajuscule);
+            //Console.WriteLine(ajoutMinuscule);
+            //Console.WriteLine(ajoutChiffre);
+            //Console.WriteLine(ajoutSymbole);
 
         } while (ajoutMajuscule == false && ajoutMinuscule == false && ajoutChiffre == false && ajoutSymbole == false);
         Critere critere = new(longueur, ajoutMajuscule, ajoutMinuscule, ajoutChiffre, ajoutSymbole);
@@ -38,6 +41,7 @@ internal class GenerateurMdp
             AjoutPremierElement(_random, critere, _listMotDePasseBrut);
             AjoutDuReste(critere, _random);
             MelangerMdp(_listMotDePasseBrut);
+            AffichageMdp(_listMotDePasseBrut);
 
             do
             {
@@ -55,6 +59,7 @@ internal class GenerateurMdp
                     AjoutPremierElement(_random, critere, _listMotDePasseBrut);
                     AjoutDuReste(critere, _random);
                     MelangerMdp(_listMotDePasseBrut);
+                    AffichageMdp(_listMotDePasseBrut);
                 }
 
             } while (_choixUtilisateur == "1");
@@ -108,11 +113,16 @@ internal class GenerateurMdp
     private void MelangerMdp(List<string> MotDePasseAMixer)
     {
         IOrderedEnumerable<string> motDePasseMelanger = MotDePasseAMixer.OrderBy(item => Random.Shared.Next());
+    }
+
+    private void AffichageMdp(List<string> motDePasseMelanger)
+    {
         Console.Write("\r\nLe mot de passe généré est : ");
 
         foreach (string CaractereMdp in motDePasseMelanger)
             Console.Write(CaractereMdp);
 
-        MotDePasseAMixer.Clear(); // TODO : A verifier si je peut retirer!
+        motDePasseMelanger.Clear(); // TODO : A verifier si je peut retirer!
     }
+
 }

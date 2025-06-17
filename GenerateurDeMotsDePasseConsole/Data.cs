@@ -2,8 +2,6 @@
 
 internal class Data
 {
-    List<string> data = new();
-
     public List<string> LettreMinuscule = new List<string>
     {
         "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
@@ -25,10 +23,5 @@ internal class Data
     {
        "/", "!", "+", "?", "-" , "_" , "." , ",", "&", "$", "*", ":", ";", "<", "=",">"
     };
-
-    //public const string Lowercase = "abcdefghijklmnopqrstuvwxyz";  // Minuscules
-    //public const string Uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";  // Majuscules
-    //public const string Digits = "0123456789";                     // Chiffres
-    //public const string Symbols = "!@#$%^&*_-+=";                  // Symboles
 
 }
