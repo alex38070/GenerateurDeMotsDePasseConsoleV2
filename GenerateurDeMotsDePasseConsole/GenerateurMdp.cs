@@ -44,7 +44,6 @@ internal class GenerateurMdp
                 UtilitairesConsole.WriteColor("1. Oui, avec les mêmes critères", ConsoleColor.Blue, false);
                 UtilitairesConsole.WriteColor("2. Oui, avec de nouveaux critères", ConsoleColor.Blue, false);
                 UtilitairesConsole.WriteColor("3. Non, quitter l'application", ConsoleColor.Blue, false);
-
                 UtilitairesConsole.WriteColor("\r\nChoix_____________________________________: ", ConsoleColor.Blue, true);
                 _choixUtilisateur = UtilitairesConsole.DemanderRejouer();
 

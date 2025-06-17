@@ -28,25 +28,20 @@ internal static class UtilitairesConsole
     internal static bool DemanderOuiNon(string message)
     {
         WriteColor(message, ConsoleColor.Blue, true);
+        string saisie = Console.ReadLine() ?? string.Empty;
 
-        return Console.ReadLine() == "o" ? true : false;
+        return (saisie == "o" || saisie != "O");
     }
 
     internal static void WriteColor(string texte, ConsoleColor couleur, bool retourne)
     {
-        if (retourne == true)
-        {
-            ConsoleColor couleurOriginale = Console.ForegroundColor;
-            Console.ForegroundColor = couleur;
+        ConsoleColor couleurOriginale = Console.ForegroundColor;
+        Console.ForegroundColor = couleur;
+
+        if (retourne)
             Console.Write(texte);
-            Console.ForegroundColor = couleurOriginale;
-        }
-        if (retourne == false)
-        {
-            ConsoleColor couleurOriginale = Console.ForegroundColor;
-            Console.ForegroundColor = couleur;
-            Console.WriteLine(texte);
-            Console.ForegroundColor = couleurOriginale;
-        }
+        else Console.WriteLine(texte);
+
+        Console.ForegroundColor = couleurOriginale;
     }
 }
