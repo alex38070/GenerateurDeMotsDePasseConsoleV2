@@ -9,7 +9,6 @@ internal class GenerateurMdp
         Console.BackgroundColor = ConsoleColor.Cyan;
         DateTime dat = DateTime.Now;
         Console.Clear();
-
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("{0:d}\n", dat);
 
@@ -26,16 +25,16 @@ internal class GenerateurMdp
             bool ajoutSymbole;
             do
             {
-                ajoutMajuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres majuscules ?    (o/n) : ");
-                ajoutMinuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres minuscules ?    (o/n) : ");
-                ajoutChiffre = UtilitairesConsole.DemanderOuiNon("Inclure des chiffres ?              (o/n) : ");
-                ajoutSymbole = UtilitairesConsole.DemanderOuiNon("Inclure des symboles ?              (o/n) : ");
+                ajoutMajuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres majuscules ?____(o/n) : ");
+                ajoutMinuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres minuscules ?____(o/n) : ");
+                ajoutChiffre = UtilitairesConsole.DemanderOuiNon("Inclure des chiffres ?______________(o/n) : ");
+                ajoutSymbole = UtilitairesConsole.DemanderOuiNon("Inclure des symboles ?______________(o/n) : ");
 
             } while (ajoutMajuscule == false && ajoutMinuscule == false && ajoutChiffre == false && ajoutSymbole == false);
 
-            Critere critere = new(longueur, ajoutMajuscule, ajoutMinuscule, ajoutChiffre, ajoutSymbole);
-            AjoutPremierElement(_random, critere, _listMotDePasseBrut);
-            AjoutDuReste(critere, _random, _listMotDePasseBrut);
+            Critere _critere = new(longueur, ajoutMajuscule, ajoutMinuscule, ajoutChiffre, ajoutSymbole);
+            AjoutPremierElement(_random, _critere, _listMotDePasseBrut);
+            AjoutDuReste(_critere, _random, _listMotDePasseBrut);
             MelangerMdp(_listMotDePasseBrut);
             AffichageMdp(_listMotDePasseBrut);
 
@@ -47,66 +46,66 @@ internal class GenerateurMdp
                 Console.WriteLine("2. Oui, avec de nouveaux critères");
                 Console.WriteLine("3. Non, quitter l'application");
 
-                Console.Write("\r\nChoix : ");
+                Console.Write("\r\nChoix_____________________________________: ");
                 _choixUtilisateur = UtilitairesConsole.DemanderRejouer();
 
                 if (_choixUtilisateur == "1")
                 {
-                    AjoutPremierElement(_random, critere, _listMotDePasseBrut);
-                    AjoutDuReste(critere, _random, _listMotDePasseBrut);
+                    AjoutPremierElement(_random, _critere, _listMotDePasseBrut);
+                    AjoutDuReste(_critere, _random, _listMotDePasseBrut);
                     MelangerMdp(_listMotDePasseBrut);
                     AffichageMdp(_listMotDePasseBrut);
-
                 }
 
             } while (_choixUtilisateur == "1");
 
         } while (_choixUtilisateur == "2");
+
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("\r\nMerci au revoir");
         Console.ForegroundColor = ConsoleColor.Blue;
-
     }
-
 
     private List<string> AjoutPremierElement(Random _random, Critere critere, List<string> _listMotDePasseBrut)
     {
+
         if (critere.AjoutMajuscule)
-            _listMotDePasseBrut.Add(_data.LettreMajuscule[_random.Next(1, _data.LettreMajuscule.Count())]);
+            _listMotDePasseBrut.Add(_data.lettreMajuscule[_random.Next(_data.lettreMajuscule.Count)]);
 
         if (critere.AjoutMinuscule)
-            _listMotDePasseBrut.Add(_data.LettreMinuscule[_random.Next(1, _data.LettreMinuscule.Count())]);
+            _listMotDePasseBrut.Add(_data.lettreMinuscule[_random.Next(_data.lettreMinuscule.Count)]);
 
         if (critere.AjoutChiffre)
-            _listMotDePasseBrut.Add(_data.Nombre[_random.Next(1, _data.Nombre.Count())]);
+            _listMotDePasseBrut.Add(_data.chiffre[_random.Next(_data.chiffre.Count)]);
 
         if (critere.AjoutSymbole)
-            _listMotDePasseBrut.Add(_data.Symbole[_random.Next(1, _data.Symbole.Count())]);
+            _listMotDePasseBrut.Add(_data.symbole[_random.Next(_data.symbole.Count)]);
 
         return _listMotDePasseBrut;
     }
 
     private List<string> AjoutDuReste(Critere critere, Random _random, List<string> _listMotDePasseBrut)
     {
-        List<List<string>> _listMotDePasseParent = new();
+        List<List<string>> _listMotDePasseParent = [];
 
         if (critere.AjoutMajuscule)
-            _listMotDePasseParent.Add(_data.LettreMajuscule); // _listMotDePasseParent.AddRange(_data.LettreMajuscule);
+            _listMotDePasseParent.Add(_data.lettreMajuscule);
 
         if (critere.AjoutMinuscule)
-            _listMotDePasseParent.Add(_data.LettreMinuscule); // _listMotDePasseParent.AddRange(_data.LettreMinuscule);
+            _listMotDePasseParent.Add(_data.lettreMinuscule);
 
         if (critere.AjoutChiffre)
-            _listMotDePasseParent.Add(_data.Nombre); // _listMotDePasseParent.AddRange(_data.Nombre);
+            _listMotDePasseParent.Add(_data.chiffre);
 
         if (critere.AjoutSymbole)
-            _listMotDePasseParent.Add(_data.Symbole); // _listMotDePasseParent.AddRange(_data.Symbole);
+            _listMotDePasseParent.Add(_data.symbole);
 
         do
         {
-            //_listMotDePasseBrut.Add(_listMotDePasseParent[_random.Next(1, _listMotDePasseParent.Count())]);
             List<string> choixList = _listMotDePasseParent[_random.Next(_listMotDePasseParent.Count)];
+
             string element = choixList[_random.Next(choixList.Count)];
+
             _listMotDePasseBrut.Add(element);
 
         } while (_listMotDePasseBrut.Count < critere.Longueur);
@@ -114,14 +113,14 @@ internal class GenerateurMdp
         return _listMotDePasseBrut;
     }
 
-    private void MelangerMdp(List<string> MotDePasseAMixer)
+    private static void MelangerMdp(List<string> MotDePasseAMixer)
     {
         IOrderedEnumerable<string> motDePasseMelanger = MotDePasseAMixer.OrderBy(item => Random.Shared.Next());
     }
 
-    private void AffichageMdp(List<string> motDePasseMelanger)
+    private static void AffichageMdp(List<string> motDePasseMelanger)
     {
-        Console.Write("\r\nLe mot de passe généré est : ");
+        Console.Write("\r\nLe mot de passe généré est________________: ");
         Console.ForegroundColor = ConsoleColor.Red;
 
         foreach (string CaractereMdp in motDePasseMelanger)

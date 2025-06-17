@@ -2,9 +2,9 @@
 
 public class Program
 {
-    static void Main(string[] args)
+    static void Main()
     {
-        GenerateurMdp generateurMdp = new GenerateurMdp();
+        GenerateurMdp generateurMdp = new();
         generateurMdp.Lancer();
     }
 }
