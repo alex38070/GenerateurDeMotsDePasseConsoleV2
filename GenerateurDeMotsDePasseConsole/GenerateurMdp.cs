@@ -17,7 +17,6 @@ internal class GenerateurMdp
 
         do
         {
-            Console.ForegroundColor = ConsoleColor.Blue;
             int longueur = UtilitairesConsole.DemanderLongueur(4, 40); // Choix nombre utilisateur
             bool ajoutMajuscule;
             bool ajoutMinuscule;
@@ -41,12 +40,12 @@ internal class GenerateurMdp
             do
             {
                 Console.WriteLine();
-                Console.WriteLine("\r\nSouhaitez-vous générer un nouveau mot de passe ?\r\n");
-                Console.WriteLine("1. Oui, avec les mêmes critères");
-                Console.WriteLine("2. Oui, avec de nouveaux critères");
-                Console.WriteLine("3. Non, quitter l'application");
+                UtilitairesConsole.WriteLineEnCouleur("\r\nSouhaitez-vous générer un nouveau mot de passe ?\r\n", ConsoleColor.Blue);
+                UtilitairesConsole.WriteLineEnCouleur("1. Oui, avec les mêmes critères", ConsoleColor.Blue);
+                UtilitairesConsole.WriteLineEnCouleur("2. Oui, avec de nouveaux critères", ConsoleColor.Blue);
+                UtilitairesConsole.WriteLineEnCouleur("3. Non, quitter l'application", ConsoleColor.Blue);
 
-                Console.Write("\r\nChoix_____________________________________: ");
+                UtilitairesConsole.WriteEnCouleur("\r\nChoix_____________________________________: ", ConsoleColor.Blue);
                 _choixUtilisateur = UtilitairesConsole.DemanderRejouer();
 
                 if (_choixUtilisateur == "1")
@@ -61,9 +60,7 @@ internal class GenerateurMdp
 
         } while (_choixUtilisateur == "2");
 
-        Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("\r\nMerci au revoir");
-        Console.ForegroundColor = ConsoleColor.Blue;
     }
 
     private List<string> AjoutPremierElement(Random _random, Critere critere, List<string> _listMotDePasseBrut)
@@ -120,13 +117,10 @@ internal class GenerateurMdp
 
     private static void AffichageMdp(List<string> motDePasseMelanger)
     {
-        Console.Write("\r\nLe mot de passe généré est________________: ");
-        Console.ForegroundColor = ConsoleColor.Red;
+        UtilitairesConsole.WriteEnCouleur("\r\nLe mot de passe généré est________________: ", ConsoleColor.Blue);
 
         foreach (string CaractereMdp in motDePasseMelanger)
             Console.Write(CaractereMdp);
-
-        Console.ForegroundColor = ConsoleColor.Blue;
 
         motDePasseMelanger.Clear();
     }
