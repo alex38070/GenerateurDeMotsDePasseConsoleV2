@@ -32,8 +32,7 @@ internal static class UtilitairesConsole
 
     internal static bool DemanderOuiNon(string message)
     {
-
-        Console.Write($"\r\n{message}");
+        Console.Write(message);
         Console.ForegroundColor = ConsoleColor.Red;
 
         if (Console.ReadLine() == "o")

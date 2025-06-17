@@ -4,12 +4,7 @@ internal class GenerateurMdp
     private readonly Data _data = new(); // readonly impossible de la modifier.
     private readonly Random _random = new(); // readonly impossible de la modifier.
 
-    public void Lancer()
-    {
-        GenerateurDeMotDePasse();
-    }
-
-    private void GenerateurDeMotDePasse()
+    internal void Lancer()
     {
         Console.BackgroundColor = ConsoleColor.Cyan;
         DateTime dat = DateTime.Now;
@@ -31,10 +26,10 @@ internal class GenerateurMdp
             bool ajoutSymbole;
             do
             {
-                ajoutMajuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres majuscules ? (o/n) : ");
-                ajoutMinuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres minuscules ? (o/n) : ");
-                ajoutChiffre = UtilitairesConsole.DemanderOuiNon("     Inclure des chiffres ?      (o/n) : ");
-                ajoutSymbole = UtilitairesConsole.DemanderOuiNon("     Inclure des symboles ?      (o/n) : ");
+                ajoutMajuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres majuscules ?    (o/n) : ");
+                ajoutMinuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres minuscules ?    (o/n) : ");
+                ajoutChiffre = UtilitairesConsole.DemanderOuiNon("Inclure des chiffres ?              (o/n) : ");
+                ajoutSymbole = UtilitairesConsole.DemanderOuiNon("Inclure des symboles ?              (o/n) : ");
 
             } while (ajoutMajuscule == false && ajoutMinuscule == false && ajoutChiffre == false && ajoutSymbole == false);
 
@@ -109,13 +104,12 @@ internal class GenerateurMdp
 
         do
         {
-
             //_listMotDePasseBrut.Add(_listMotDePasseParent[_random.Next(1, _listMotDePasseParent.Count())]);
-            List<string> choixList = _listMotDePasseParent[_random.Next(0, _listMotDePasseParent.Count)];
-            string element = choixList[_random.Next(1, choixList.Count)];
+            List<string> choixList = _listMotDePasseParent[_random.Next(_listMotDePasseParent.Count)];
+            string element = choixList[_random.Next(choixList.Count)];
             _listMotDePasseBrut.Add(element);
 
-        } while (_listMotDePasseBrut.Count != critere.Longueur);
+        } while (_listMotDePasseBrut.Count < critere.Longueur);
 
         return _listMotDePasseBrut;
     }
