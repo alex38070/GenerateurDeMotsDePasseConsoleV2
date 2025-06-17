@@ -40,12 +40,12 @@ internal class GenerateurMdp
             do
             {
                 Console.WriteLine();
-                UtilitairesConsole.WriteLineCouleur("\r\nSouhaitez-vous générer un nouveau mot de passe ?\r\n", ConsoleColor.Blue);
-                UtilitairesConsole.WriteLineCouleur("1. Oui, avec les mêmes critères", ConsoleColor.Blue);
-                UtilitairesConsole.WriteLineCouleur("2. Oui, avec de nouveaux critères", ConsoleColor.Blue);
-                UtilitairesConsole.WriteLineCouleur("3. Non, quitter l'application", ConsoleColor.Blue);
+                UtilitairesConsole.WriteColor("\r\nSouhaitez-vous générer un nouveau mot de passe ?\r\n", ConsoleColor.Blue, true);
+                UtilitairesConsole.WriteColor("1. Oui, avec les mêmes critères", ConsoleColor.Blue, false);
+                UtilitairesConsole.WriteColor("2. Oui, avec de nouveaux critères", ConsoleColor.Blue, false);
+                UtilitairesConsole.WriteColor("3. Non, quitter l'application", ConsoleColor.Blue, false);
 
-                UtilitairesConsole.WriteCouleur("\r\nChoix_____________________________________: ", ConsoleColor.Blue);
+                UtilitairesConsole.WriteColor("\r\nChoix_____________________________________: ", ConsoleColor.Blue, true);
                 _choixUtilisateur = UtilitairesConsole.DemanderRejouer();
 
                 if (_choixUtilisateur == "1")
@@ -117,7 +117,7 @@ internal class GenerateurMdp
 
     private static void AffichageMdp(List<string> motDePasseMelanger)
     {
-        UtilitairesConsole.WriteCouleur("\r\nLe mot de passe généré est________________: ", ConsoleColor.Blue);
+        UtilitairesConsole.WriteColor("\r\nLe mot de passe généré est________________: ", ConsoleColor.Blue, true);
 
         foreach (string CaractereMdp in motDePasseMelanger)
             Console.Write(CaractereMdp);
