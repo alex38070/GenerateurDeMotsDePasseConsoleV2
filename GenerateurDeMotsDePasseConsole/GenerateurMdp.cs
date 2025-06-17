@@ -3,7 +3,6 @@ internal class GenerateurMdp
 {
     private readonly Data _data = new(); // readonly impossible de la modifier.
     private readonly Random _random = new(); // readonly impossible de la modifier.
-    private readonly List<string> _listMotDePasseBrut = [];
 
     public void Lancer()
     {
@@ -12,33 +11,29 @@ internal class GenerateurMdp
 
     private void GenerateurDeMotDePasse()
     {
-        bool ajoutMajuscule = false;
-        bool ajoutMinuscule = false;
-        bool ajoutChiffre = false;
-        bool ajoutSymbole = false;
-        string _choixUtilisateur = string.Empty;
-
-        int longueur = UtilitairesConsole.DemanderLongueur(4, 40); // Choix nombre utilisateur
+        string _choixUtilisateur;
+        List<string> _listMotDePasseBrut = [];
 
         do
         {
-            ajoutMajuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres majuscules ? (o/n) : ");
-            ajoutMinuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres minuscules ? (o/n) : ");
-            ajoutChiffre = UtilitairesConsole.DemanderOuiNon("     Inclure des chiffres ?      (o/n) : ");
-            ajoutSymbole = UtilitairesConsole.DemanderOuiNon("     Inclure des symboles ?      (o/n) : ");
+            int longueur;
+            bool ajoutMajuscule;
+            bool ajoutMinuscule;
+            bool ajoutChiffre;
+            bool ajoutSymbole;
+            do
+            {
+                longueur = UtilitairesConsole.DemanderLongueur(4, 40); // Choix nombre utilisateur
+                ajoutMajuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres majuscules ? (o/n) : ");
+                ajoutMinuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres minuscules ? (o/n) : ");
+                ajoutChiffre = UtilitairesConsole.DemanderOuiNon("     Inclure des chiffres ?      (o/n) : ");
+                ajoutSymbole = UtilitairesConsole.DemanderOuiNon("     Inclure des symboles ?      (o/n) : ");
 
-            //Console.WriteLine(ajoutMajuscule);
-            //Console.WriteLine(ajoutMinuscule);
-            //Console.WriteLine(ajoutChiffre);
-            //Console.WriteLine(ajoutSymbole);
+            } while (ajoutMajuscule == false && ajoutMinuscule == false && ajoutChiffre == false && ajoutSymbole == false);
 
-        } while (ajoutMajuscule == false && ajoutMinuscule == false && ajoutChiffre == false && ajoutSymbole == false);
-        Critere critere = new(longueur, ajoutMajuscule, ajoutMinuscule, ajoutChiffre, ajoutSymbole);
-
-        do
-        {
+            Critere critere = new(longueur, ajoutMajuscule, ajoutMinuscule, ajoutChiffre, ajoutSymbole);
             AjoutPremierElement(_random, critere, _listMotDePasseBrut);
-            AjoutDuReste(critere, _random);
+            AjoutDuReste(critere, _random, _listMotDePasseBrut);
             MelangerMdp(_listMotDePasseBrut);
             AffichageMdp(_listMotDePasseBrut);
 
@@ -56,7 +51,7 @@ internal class GenerateurMdp
                 if (_choixUtilisateur == "1")
                 {
                     AjoutPremierElement(_random, critere, _listMotDePasseBrut);
-                    AjoutDuReste(critere, _random);
+                    AjoutDuReste(critere, _random, _listMotDePasseBrut);
                     MelangerMdp(_listMotDePasseBrut);
                     AffichageMdp(_listMotDePasseBrut);
                 }
@@ -67,8 +62,9 @@ internal class GenerateurMdp
         Console.WriteLine("\r\nMerci au revoir");
     }
 
-    private List<string> AjoutPremierElement(Random random, Critere critere, List<string> _listMotDePasseBrut)
+    private List<string> AjoutPremierElement(Random _random, Critere critere, List<string> _listMotDePasseBrut)
     {
+
         if (critere.AjoutMajuscule)
             _listMotDePasseBrut.Add(_data.LettreMajuscule[_random.Next(1, _data.LettreMajuscule.Count())]);
 
@@ -84,7 +80,7 @@ internal class GenerateurMdp
         return _listMotDePasseBrut;
     }
 
-    private List<string> AjoutDuReste(Critere critere, Random _random)
+    private List<string> AjoutDuReste(Critere critere, Random _random, List<string> _listMotDePasseBrut)
     {
         List<string> _listMotDePasseParent = new();
 
