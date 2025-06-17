@@ -16,16 +16,25 @@ internal class GenerateurMdp
     private void GenerateurDeMotDePasse()
     {
         string _choixUtilisateur = string.Empty;
+
+        int longueur = UtilitairesConsole.DemanderLongueur(4, 40); // Choix nombre utilisateur
+
+        bool ajoutMajuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres majuscules ? (o/n) : ");
+        bool ajoutMinuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres minuscules ? (o/n) : ");
+        bool ajoutChiffre = UtilitairesConsole.DemanderOuiNon("Inclure des chiffres ? (o/n) : ");
+        bool ajoutSymbole = UtilitairesConsole.DemanderOuiNon("Inclure des symboles ? (o/n) : ");
         do
         {
-            int longueur = UtilitairesConsole.DemanderLongueur(4, 40); // Choix nombre utilisateur
+            ajoutMajuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres majuscules ? (o/n) : ");
+            ajoutMinuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres minuscules ? (o/n) : ");
+            ajoutChiffre = UtilitairesConsole.DemanderOuiNon("Inclure des chiffres ? (o/n) : ");
+            ajoutSymbole = UtilitairesConsole.DemanderOuiNon("Inclure des symboles ? (o/n) : ");
 
-            bool ajoutMajuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres majuscules ? (o/n) : ");
-            bool ajoutMinuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres minuscules ? (o/n) : ");
-            bool ajoutChiffre = UtilitairesConsole.DemanderOuiNon("Inclure des chiffres ? (o/n) : ");
-            bool ajoutSymbole = UtilitairesConsole.DemanderOuiNon("Inclure des symboles ? (o/n) : ");
-            Critere critere = new(longueur, ajoutMajuscule, ajoutMinuscule, ajoutChiffre, ajoutSymbole);
+        } while (ajoutMajuscule == false && ajoutMinuscule == false && ajoutChiffre == false && ajoutSymbole == false);
+        Critere critere = new(longueur, ajoutMajuscule, ajoutMinuscule, ajoutChiffre, ajoutSymbole);
 
+        do
+        {
             AjoutPremierElement(_random, critere, _listMotDePasseBrut);
             AjoutDuReste(critere, _random);
             MelangerMdp(_listMotDePasseBrut);
@@ -51,7 +60,6 @@ internal class GenerateurMdp
             } while (_choixUtilisateur == "1");
 
         } while (_choixUtilisateur == "2");
-        //Environment.Exit(0);
         Console.WriteLine("\r\nMerci au revoir");
     }
 
