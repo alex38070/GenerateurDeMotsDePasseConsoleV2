@@ -18,8 +18,6 @@ internal class GenerateurMdp
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("{0:d}\n", dat);
 
-
-
         string _choixUtilisateur;
         List<string> _listMotDePasseBrut = [];
 
@@ -48,7 +46,6 @@ internal class GenerateurMdp
 
             do
             {
-
                 Console.WriteLine();
                 Console.WriteLine("\r\nSouhaitez-vous générer un nouveau mot de passe ?\r\n");
                 Console.WriteLine("1. Oui, avec les mêmes critères");
@@ -79,7 +76,6 @@ internal class GenerateurMdp
 
     private List<string> AjoutPremierElement(Random _random, Critere critere, List<string> _listMotDePasseBrut)
     {
-
         if (critere.AjoutMajuscule)
             _listMotDePasseBrut.Add(_data.LettreMajuscule[_random.Next(1, _data.LettreMajuscule.Count())]);
 
@@ -87,7 +83,7 @@ internal class GenerateurMdp
             _listMotDePasseBrut.Add(_data.LettreMinuscule[_random.Next(1, _data.LettreMinuscule.Count())]);
 
         if (critere.AjoutChiffre)
-            _listMotDePasseBrut.Add(_data.Nombres[_random.Next(1, _data.Nombres.Count())]);
+            _listMotDePasseBrut.Add(_data.Nombre[_random.Next(1, _data.Nombre.Count())]);
 
         if (critere.AjoutSymbole)
             _listMotDePasseBrut.Add(_data.Symbole[_random.Next(1, _data.Symbole.Count())]);
@@ -97,23 +93,27 @@ internal class GenerateurMdp
 
     private List<string> AjoutDuReste(Critere critere, Random _random, List<string> _listMotDePasseBrut)
     {
-        List<string> _listMotDePasseParent = new();
+        List<List<string>> _listMotDePasseParent = new();
 
         if (critere.AjoutMajuscule)
-            _listMotDePasseParent.AddRange(_data.LettreMajuscule);
+            _listMotDePasseParent.Add(_data.LettreMajuscule); // _listMotDePasseParent.AddRange(_data.LettreMajuscule);
 
         if (critere.AjoutMinuscule)
-            _listMotDePasseParent.AddRange(_data.LettreMinuscule);
+            _listMotDePasseParent.Add(_data.LettreMinuscule); // _listMotDePasseParent.AddRange(_data.LettreMinuscule);
 
         if (critere.AjoutChiffre)
-            _listMotDePasseParent.AddRange(_data.Nombres);
+            _listMotDePasseParent.Add(_data.Nombre); // _listMotDePasseParent.AddRange(_data.Nombre);
 
         if (critere.AjoutSymbole)
-            _listMotDePasseParent.AddRange(_data.Symbole);
+            _listMotDePasseParent.Add(_data.Symbole); // _listMotDePasseParent.AddRange(_data.Symbole);
 
         do
         {
-            _listMotDePasseBrut.Add(_listMotDePasseParent[_random.Next(1, _listMotDePasseParent.Count())]);
+
+            //_listMotDePasseBrut.Add(_listMotDePasseParent[_random.Next(1, _listMotDePasseParent.Count())]);
+            List<string> choixList = _listMotDePasseParent[_random.Next(0, _listMotDePasseParent.Count)];
+            string element = choixList[_random.Next(1, choixList.Count)];
+            _listMotDePasseBrut.Add(element);
 
         } while (_listMotDePasseBrut.Count != critere.Longueur);
 
@@ -127,9 +127,7 @@ internal class GenerateurMdp
 
     private void AffichageMdp(List<string> motDePasseMelanger)
     {
-
         Console.Write("\r\nLe mot de passe généré est : ");
-
         Console.ForegroundColor = ConsoleColor.Red;
 
         foreach (string CaractereMdp in motDePasseMelanger)
@@ -137,7 +135,6 @@ internal class GenerateurMdp
 
         Console.ForegroundColor = ConsoleColor.Blue;
 
-        motDePasseMelanger.Clear(); // TODO : A verifier si je peut retirer!
+        motDePasseMelanger.Clear();
     }
-
 }

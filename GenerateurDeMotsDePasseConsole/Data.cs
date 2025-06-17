@@ -14,14 +14,13 @@ internal class Data
         "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
     };
 
-    public List<string> Nombres = new List<string>
+    public List<string> Nombre = new List<string>
     {
        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
     };
 
     public List<string> Symbole = new List<string>
     {
-       "/", "!", "+", "?", "-" , "_" , "." , ",", "&", "$", "*", ":", ";", "<", "=",">"
+       "/", "!", "+", "?", "&", "$","<", "=", ">"
     };
-
 }
