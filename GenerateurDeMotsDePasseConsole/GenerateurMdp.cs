@@ -1,4 +1,6 @@
-﻿namespace GenerateurDeMotsDePasseConsoleV2;
+﻿using System.Drawing;
+
+namespace GenerateurDeMotsDePasseConsoleV2;
 internal class GenerateurMdp
 {
     private readonly Data _data = new(); // readonly impossible de la modifier.
@@ -11,19 +13,19 @@ internal class GenerateurMdp
 
     private void GenerateurDeMotDePasse()
     {
+        Console.ForegroundColor = ConsoleColor.Cyan;
         string _choixUtilisateur;
         List<string> _listMotDePasseBrut = [];
 
         do
         {
-            int longueur;
+            int longueur = UtilitairesConsole.DemanderLongueur(4, 40); // Choix nombre utilisateur
             bool ajoutMajuscule;
             bool ajoutMinuscule;
             bool ajoutChiffre;
             bool ajoutSymbole;
             do
             {
-                longueur = UtilitairesConsole.DemanderLongueur(4, 40); // Choix nombre utilisateur
                 ajoutMajuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres majuscules ? (o/n) : ");
                 ajoutMinuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres minuscules ? (o/n) : ");
                 ajoutChiffre = UtilitairesConsole.DemanderOuiNon("     Inclure des chiffres ?      (o/n) : ");
@@ -40,7 +42,7 @@ internal class GenerateurMdp
             do
             {
                 Console.WriteLine();
-                Console.WriteLine("\r\nSouhaitez-vous générer un nouveau mot de passe ?\r\n");
+                Console.WriteLine("\r\nSouhaitez-vous générer un nouveau mot de passe ?\r\n", Color.Cyan);
                 Console.WriteLine("1. Oui, avec les mêmes critères");
                 Console.WriteLine("2. Oui, avec de nouveaux critères");
                 Console.WriteLine("3. Non, quitter l'application");
