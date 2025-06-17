@@ -7,7 +7,9 @@ internal static class UtilitairesConsole
         while (true)
         {
             Console.Write($"Longueur du mot de passe souhaitée ({min}-{max}) : ");
+            Console.ForegroundColor = ConsoleColor.Red;
             string saisie = Console.ReadLine() ?? string.Empty;
+            Console.ForegroundColor = ConsoleColor.Blue;
 
             if (int.TryParse(saisie, out int nombre) && nombre >= min && nombre <= max)
                 return nombre;
@@ -16,9 +18,12 @@ internal static class UtilitairesConsole
 
     internal static string DemanderRejouer() // Choix nombre non converti
     {
+
         while (true)
         {
+            Console.ForegroundColor = ConsoleColor.Red;
             string saisie = Console.ReadLine() ?? string.Empty;
+            Console.ForegroundColor = ConsoleColor.Blue;
 
             if (saisie != "1" || saisie != "2" || saisie != "3")
                 return saisie;
@@ -27,9 +32,18 @@ internal static class UtilitairesConsole
 
     internal static bool DemanderOuiNon(string message)
     {
+
         Console.Write($"\r\n{message}");
+        Console.ForegroundColor = ConsoleColor.Red;
+
         if (Console.ReadLine() == "o")
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
             return true;
-        else return false;
+        }
+
+        Console.ForegroundColor = ConsoleColor.Blue;
+        return false;
+
     }
 }
