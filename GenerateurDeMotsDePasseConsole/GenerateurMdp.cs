@@ -4,10 +4,6 @@ internal class GenerateurMdp
     private readonly Data _data = new(); // readonly impossible de la modifier.
     private readonly Random _random = new(); // readonly impossible de la modifier.
     private readonly List<string> _listMotDePasseBrut = [];
-    bool ajoutMajuscule = false;
-    bool ajoutMinuscule = false;
-    bool ajoutChiffre = false;
-    bool ajoutSymbole = false;
 
     public void Lancer()
     {
@@ -16,7 +12,10 @@ internal class GenerateurMdp
 
     private void GenerateurDeMotDePasse()
     {
-
+        bool ajoutMajuscule = false;
+        bool ajoutMinuscule = false;
+        bool ajoutChiffre = false;
+        bool ajoutSymbole = false;
         string _choixUtilisateur = string.Empty;
 
         int longueur = UtilitairesConsole.DemanderLongueur(4, 40); // Choix nombre utilisateur
