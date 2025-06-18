@@ -13,7 +13,7 @@ public class Critere(int longueur, bool ajoutMajuscule, bool ajoutMinuscule, boo
     {
         while (true)
         {
-            bool ajoutMajuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres majuscules ?____(o/n) : ");
+            bool ajoutMajuscule = UtilitairesConsole.DemanderOuiNon("\r\nInclure des lettres majuscules ?____(o/n) : ");
             bool ajoutMinuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres minuscules ?____(o/n) : ");
             bool ajoutChiffre = UtilitairesConsole.DemanderOuiNon("Inclure des chiffres ?______________(o/n) : ");
             bool ajoutSymbole = UtilitairesConsole.DemanderOuiNon("Inclure des symboles ?______________(o/n) : ");

@@ -13,7 +13,7 @@ internal class GenerateurMotDePasses
 
     internal void GenererMotDePasse()
     {
-        string _choixUtilisateur;
+        string choixUtilisateur;
         Critere _critere;
         UtilitairesConsole.AffichageDate();
 
@@ -27,11 +27,11 @@ internal class GenerateurMotDePasses
                 AffichageMdp(GenererMotDePasseEtRetourListMelanger(_critere));
                 UtilitairesConsole.ListChoixRejouer();
 
-                _choixUtilisateur = UtilitairesConsole.DemanderRejouer();
+                choixUtilisateur = UtilitairesConsole.DemanderRejouer();
 
-            } while (_choixUtilisateur == "1");
+            } while (choixUtilisateur == "1");
 
-        } while (_choixUtilisateur != "3");
+        } while (choixUtilisateur != "3");
 
         Console.WriteLine("\r\nMerci au revoir");
     }
@@ -39,46 +39,44 @@ internal class GenerateurMotDePasses
     private List<string> GenererMotDePasseEtRetourListMelanger(Critere critere)
     {
         Random _random = new();
-        List<string> _listMotDePasseBrut = [];
-        List<List<string>> _listMotDePasseParent = [];
+        List<string> listMotDePasseBrut = [];
+        List<List<string>> listMotDePasseParent = [];
 
         if (critere.AjoutMajuscule)
         {
-            _listMotDePasseBrut.Add(lettreMajuscule[_random.Next(lettreMajuscule.Count)]);
-            _listMotDePasseParent.Add(lettreMajuscule);
+            listMotDePasseBrut.Add(lettreMajuscule[_random.Next(lettreMajuscule.Count)]);
+            listMotDePasseParent.Add(lettreMajuscule);
         }
 
         if (critere.AjoutMinuscule)
         {
-            _listMotDePasseBrut.Add(lettreMinuscule[_random.Next(lettreMinuscule.Count)]);
-            _listMotDePasseParent.Add(lettreMinuscule);
+            listMotDePasseBrut.Add(lettreMinuscule[_random.Next(lettreMinuscule.Count)]);
+            listMotDePasseParent.Add(lettreMinuscule);
         }
 
         if (critere.AjoutChiffre)
         {
-            _listMotDePasseBrut.Add(chiffre[_random.Next(chiffre.Count)]);
-            _listMotDePasseParent.Add(chiffre);
+            listMotDePasseBrut.Add(chiffre[_random.Next(chiffre.Count)]);
+            listMotDePasseParent.Add(chiffre);
         }
 
         if (critere.AjoutSymbole)
         {
-            _listMotDePasseBrut.Add(symbole[_random.Next(symbole.Count)]);
-            _listMotDePasseParent.Add(symbole);
+            listMotDePasseBrut.Add(symbole[_random.Next(symbole.Count)]);
+            listMotDePasseParent.Add(symbole);
         }
 
         do
         {
-            List<string> choixList = _listMotDePasseParent[_random.Next(_listMotDePasseParent.Count)];
-
+            List<string> choixList = listMotDePasseParent[_random.Next(listMotDePasseParent.Count)];
             string element = choixList[_random.Next(choixList.Count)];
+            listMotDePasseBrut.Add(element);
 
-            _listMotDePasseBrut.Add(element);
+        } while (listMotDePasseBrut.Count < critere.Longueur);
 
-        } while (_listMotDePasseBrut.Count < critere.Longueur);
+        IOrderedEnumerable<string> motDePasseMelanger = listMotDePasseBrut.OrderBy(item => Random.Shared.Next());
 
-        IOrderedEnumerable<string> motDePasseMelanger = _listMotDePasseBrut.OrderBy(item => Random.Shared.Next());
-
-        return _listMotDePasseBrut;
+        return listMotDePasseBrut;
     }
 
     private static void AffichageMdp(List<string> motDePasseMelanger)
@@ -90,5 +88,4 @@ internal class GenerateurMotDePasses
 
         motDePasseMelanger.Clear();
     }
-
 }

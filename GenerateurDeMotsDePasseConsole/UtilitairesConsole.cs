@@ -6,7 +6,7 @@ internal static class UtilitairesConsole
     {
         while (true)
         {
-            WriteColor($"Longueur du mot de passe souhaitée ({min}-{max}) : ", ConsoleColor.Blue, true);
+            WriteColor($"\r\nLongueur du mot de passe souhaitée ({min}-{max}) : ", ConsoleColor.Blue, true);
             string saisie = Console.ReadLine() ?? string.Empty;
 
             if (int.TryParse(saisie, out int nombre) && nombre >= min && nombre <= max)
@@ -23,6 +23,16 @@ internal static class UtilitairesConsole
             if (saisie != "1" || saisie != "2" || saisie != "3")
                 return saisie;
         }
+    }
+
+    internal static void ListChoixRejouer()
+    {
+        Console.WriteLine();
+        UtilitairesConsole.WriteColor("\r\nSouhaitez-vous générer un nouveau mot de passe ?\r\n", ConsoleColor.Blue, true);
+        UtilitairesConsole.WriteColor("1. Oui, avec les mêmes critères", ConsoleColor.Blue, false);
+        UtilitairesConsole.WriteColor("2. Oui, avec de nouveaux critères", ConsoleColor.Blue, false);
+        UtilitairesConsole.WriteColor("3. Non, quitter l'application", ConsoleColor.Blue, false);
+        UtilitairesConsole.WriteColor("\r\nChoix_____________________________________: ", ConsoleColor.Blue, true);
     }
 
     internal static bool DemanderOuiNon(string message)
@@ -45,23 +55,13 @@ internal static class UtilitairesConsole
         Console.ForegroundColor = couleurOriginale;
     }
 
-    internal static void ListChoixRejouer()
-    {
-        Console.WriteLine();
-        UtilitairesConsole.WriteColor("\r\nSouhaitez-vous générer un nouveau mot de passe ?\r\n", ConsoleColor.Blue, true);
-        UtilitairesConsole.WriteColor("1. Oui, avec les mêmes critères", ConsoleColor.Blue, false);
-        UtilitairesConsole.WriteColor("2. Oui, avec de nouveaux critères", ConsoleColor.Blue, false);
-        UtilitairesConsole.WriteColor("3. Non, quitter l'application", ConsoleColor.Blue, false);
-        UtilitairesConsole.WriteColor("\r\nChoix_____________________________________: ", ConsoleColor.Blue, true);
-    }
-
     internal static void AffichageDate()
     {
         DateTime dat = DateTime.Now;
         Console.BackgroundColor = ConsoleColor.Cyan;
         Console.Clear();
         Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("{0:d}\n", dat);
+        Console.WriteLine("{0:d}", dat);
 
     }
 }
