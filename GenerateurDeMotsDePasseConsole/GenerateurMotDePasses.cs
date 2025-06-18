@@ -1,7 +1,6 @@
 ﻿namespace GenerateurDeMotsDePasseConsoleV2;
 internal class GenerateurMotDePasses
 {
-    private readonly Data _data = new(); // readonly impossible de la modifier.
     private readonly Random _random = new(); // readonly impossible de la modifier.
 
     internal List<string> lettreMinuscule =
