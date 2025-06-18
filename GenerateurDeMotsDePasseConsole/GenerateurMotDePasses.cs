@@ -13,8 +13,9 @@ internal class GenerateurMotDePasses
 
     internal void GenererMotDePasse()
     {
-        string choixUtilisateur;
         Critere _critere;
+
+        string choixUtilisateur;
         UtilitairesConsole.AffichageDate();
 
         do
@@ -36,31 +37,31 @@ internal class GenerateurMotDePasses
         Console.WriteLine("\r\nMerci au revoir");
     }
 
-    private List<string> GenererMotDePasseEtRetourListMelanger(Critere critere)
+    private List<string> GenererMotDePasseEtRetourListMelanger(Critere _critere)
     {
         Random _random = new();
         List<string> listMotDePasseBrut = [];
         List<List<string>> listMotDePasseParent = [];
 
-        if (critere.AjoutMajuscule)
+        if (_critere.AjoutMajuscule)
         {
             listMotDePasseBrut.Add(lettreMajuscule[_random.Next(lettreMajuscule.Count)]);
             listMotDePasseParent.Add(lettreMajuscule);
         }
 
-        if (critere.AjoutMinuscule)
+        if (_critere.AjoutMinuscule)
         {
             listMotDePasseBrut.Add(lettreMinuscule[_random.Next(lettreMinuscule.Count)]);
             listMotDePasseParent.Add(lettreMinuscule);
         }
 
-        if (critere.AjoutChiffre)
+        if (_critere.AjoutChiffre)
         {
             listMotDePasseBrut.Add(chiffre[_random.Next(chiffre.Count)]);
             listMotDePasseParent.Add(chiffre);
         }
 
-        if (critere.AjoutSymbole)
+        if (_critere.AjoutSymbole)
         {
             listMotDePasseBrut.Add(symbole[_random.Next(symbole.Count)]);
             listMotDePasseParent.Add(symbole);
@@ -72,7 +73,7 @@ internal class GenerateurMotDePasses
             string element = choixList[_random.Next(choixList.Count)];
             listMotDePasseBrut.Add(element);
 
-        } while (listMotDePasseBrut.Count < critere.Longueur);
+        } while (listMotDePasseBrut.Count < _critere.Longueur);
 
         IOrderedEnumerable<string> motDePasseMelanger = listMotDePasseBrut.OrderBy(item => Random.Shared.Next());
 
