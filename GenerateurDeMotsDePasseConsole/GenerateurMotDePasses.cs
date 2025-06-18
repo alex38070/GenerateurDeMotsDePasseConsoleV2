@@ -3,38 +3,19 @@ internal class GenerateurMotDePasses
 {
     private readonly Random _random = new(); // readonly impossible de la modifier.
 
-    internal List<string> lettreMinuscule =
-    [
-        "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
-            "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
-    ];
+    internal List<string> lettreMinuscule = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
-    internal List<string> lettreMajuscule =
-    [
-        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
-        "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
-    ];
+    internal List<string> lettreMajuscule = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 
-    internal List<string> chiffre =
-    [
-       "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
-    ];
+    internal List<string> chiffre = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
-    internal List<string> symbole =
-    [
-       "/", "!", "+", "?", "&", "$", "<", "=", ">"
-    ];
+    internal List<string> symbole = ["/", "!", "+", "?", "&", "$", "<", "=", ">"];
 
-    internal void Lancer()
+    internal void GenererMotDePasse()
     {
         string _choixUtilisateur;
         Critere _critere;
-        DateTime dat = DateTime.Now;
-
-        Console.BackgroundColor = ConsoleColor.Cyan;
-        Console.Clear();
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("{0:d}\n", dat);
+        UtilitairesConsole.AffichageDate();
 
         do
         {
@@ -43,7 +24,7 @@ internal class GenerateurMotDePasses
 
             do
             {
-                AffichageMdp(GenererMotDePasseEtRetourList(_critere));
+                AffichageMdp(GenererMotDePasseEtRetourListMelanger(_critere));
                 UtilitairesConsole.ListChoixRejouer();
 
                 _choixUtilisateur = UtilitairesConsole.DemanderRejouer();
@@ -55,7 +36,7 @@ internal class GenerateurMotDePasses
         Console.WriteLine("\r\nMerci au revoir");
     }
 
-    private List<string> GenererMotDePasseEtRetourList(Critere critere)
+    private List<string> GenererMotDePasseEtRetourListMelanger(Critere critere)
     {
         Random _random = new();
         List<string> _listMotDePasseBrut = [];

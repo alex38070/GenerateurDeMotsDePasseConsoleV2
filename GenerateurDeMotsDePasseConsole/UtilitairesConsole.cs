@@ -54,4 +54,14 @@ internal static class UtilitairesConsole
         UtilitairesConsole.WriteColor("3. Non, quitter l'application", ConsoleColor.Blue, false);
         UtilitairesConsole.WriteColor("\r\nChoix_____________________________________: ", ConsoleColor.Blue, true);
     }
+
+    internal static void AffichageDate()
+    {
+        DateTime dat = DateTime.Now;
+        Console.BackgroundColor = ConsoleColor.Cyan;
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("{0:d}\n", dat);
+
+    }
 }
