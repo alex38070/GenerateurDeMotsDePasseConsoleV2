@@ -28,11 +28,11 @@ internal static class UtilitairesConsole
     internal static void ListChoixRejouer()
     {
         Console.WriteLine();
-        UtilitairesConsole.WriteColor("\r\nSouhaitez-vous générer un nouveau mot de passe ?\r\n", ConsoleColor.Blue, true);
-        UtilitairesConsole.WriteColor("1. Oui, avec les mêmes critères", ConsoleColor.Blue, false);
-        UtilitairesConsole.WriteColor("2. Oui, avec de nouveaux critères", ConsoleColor.Blue, false);
-        UtilitairesConsole.WriteColor("3. Non, quitter l'application", ConsoleColor.Blue, false);
-        UtilitairesConsole.WriteColor("\r\nChoix_____________________________________: ", ConsoleColor.Blue, true);
+        WriteColor("\r\nSouhaitez-vous générer un nouveau mot de passe ?\r\n", ConsoleColor.Blue, true);
+        WriteColor("1. Oui, avec les mêmes critères", ConsoleColor.Blue, false);
+        WriteColor("2. Oui, avec de nouveaux critères", ConsoleColor.Blue, false);
+        WriteColor("3. Non, quitter l'application", ConsoleColor.Blue, false);
+        WriteColor("\r\nChoix_____________________________________: ", ConsoleColor.Blue, true);
     }
 
     internal static bool DemanderOuiNon(string message)
