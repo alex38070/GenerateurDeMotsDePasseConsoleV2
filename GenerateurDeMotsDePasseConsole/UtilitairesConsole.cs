@@ -62,6 +62,5 @@ internal static class UtilitairesConsole
         Console.Clear();
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("{0:d}", dat);
-
     }
 }
