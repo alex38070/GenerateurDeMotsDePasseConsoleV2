@@ -4,7 +4,7 @@ public class Program
 {
     static void Main()
     {
-        GenerateurMdp generateurMdp = new();
+        GenerateurMotDePasses generateurMdp = new();
         generateurMdp.Lancer();
     }
 }
