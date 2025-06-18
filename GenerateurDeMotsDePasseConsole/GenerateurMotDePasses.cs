@@ -28,14 +28,15 @@ internal class GenerateurMotDePasses
 
     internal void Lancer()
     {
+        string _choixUtilisateur;
+        Critere _critere;
+        DateTime dat = DateTime.Now;
+
         Console.BackgroundColor = ConsoleColor.Cyan;
         Console.Clear();
         Console.ForegroundColor = ConsoleColor.Red;
-        DateTime dat = DateTime.Now;
         Console.WriteLine("{0:d}\n", dat);
 
-        string _choixUtilisateur = "";
-        Critere _critere;
         do
         {
             int longueur = UtilitairesConsole.DemanderLongueur(4, 40); // Choix nombre utilisateur
