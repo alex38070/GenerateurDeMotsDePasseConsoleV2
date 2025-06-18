@@ -8,7 +8,6 @@ public class Critere(int longueur, bool ajoutMajuscule, bool ajoutMinuscule, boo
     public bool AjoutChiffre { get; } = ajoutChiffre;
     public bool AjoutSymbole { get; } = ajoutSymbole;
 
-
     internal static Critere DemanderChoixType(int longueur)
     {
         while (true)
@@ -21,7 +20,5 @@ public class Critere(int longueur, bool ajoutMajuscule, bool ajoutMinuscule, boo
             if (!(ajoutMajuscule == false && ajoutMinuscule == false && ajoutChiffre == false && ajoutSymbole == false))
                 return new(longueur, ajoutMajuscule, ajoutMinuscule, ajoutChiffre, ajoutSymbole);
         }
-
     }
-
 }
