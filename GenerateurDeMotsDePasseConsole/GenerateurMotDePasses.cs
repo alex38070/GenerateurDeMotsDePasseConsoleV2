@@ -26,15 +26,10 @@ internal class GenerateurMotDePasses
        "/", "!", "+", "?", "&", "$", "<", "=", ">"
     ];
 
-    //internal void Lancer()
-    //{
-    //    GenererMotDePasse();
-    //}
-
     internal void Lancer()
     {
-        //Console.BackgroundColor = ConsoleColor.Cyan;
-        //Console.Clear();
+        Console.BackgroundColor = ConsoleColor.Cyan;
+        Console.Clear();
         Console.ForegroundColor = ConsoleColor.Red;
         DateTime dat = DateTime.Now;
         Console.WriteLine("{0:d}\n", dat);
@@ -62,7 +57,7 @@ internal class GenerateurMotDePasses
 
     private List<string> GenererMotDePasseEtRetourList(Critere critere)
     {
-        Random _random = new Random();
+        Random _random = new();
         List<string> _listMotDePasseBrut = [];
         List<List<string>> _listMotDePasseParent = [];
 
@@ -107,7 +102,7 @@ internal class GenerateurMotDePasses
 
     private static void AffichageMdp(List<string> motDePasseMelanger)
     {
-        UtilitairesConsole.WriteColor("\r\nLe mot de passe généré est________________: ", ConsoleColor.Cyan, true);
+        UtilitairesConsole.WriteColor("\r\nLe mot de passe généré est________________: ", ConsoleColor.Blue, true);
 
         foreach (string CaractereMdp in motDePasseMelanger)
             Console.Write(CaractereMdp);

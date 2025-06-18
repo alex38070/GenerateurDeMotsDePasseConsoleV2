@@ -6,7 +6,7 @@ internal static class UtilitairesConsole
     {
         while (true)
         {
-            WriteColor($"Longueur du mot de passe souhaitée ({min}-{max}) : ", ConsoleColor.Cyan, true);
+            WriteColor($"Longueur du mot de passe souhaitée ({min}-{max}) : ", ConsoleColor.Blue, true);
             string saisie = Console.ReadLine() ?? string.Empty;
 
             if (int.TryParse(saisie, out int nombre) && nombre >= min && nombre <= max)
@@ -27,10 +27,10 @@ internal static class UtilitairesConsole
 
     internal static bool DemanderOuiNon(string message)
     {
-        WriteColor(message, ConsoleColor.Cyan, true);
+        WriteColor(message, ConsoleColor.Blue, true);
         string saisie = Console.ReadLine() ?? string.Empty;
 
-        return (saisie == "o" || saisie == "O") ? true : false;
+        return (saisie == "o" || saisie == "O");
     }
 
     internal static void WriteColor(string texte, ConsoleColor couleur, bool retourne)
@@ -48,11 +48,10 @@ internal static class UtilitairesConsole
     internal static void ListChoixRejouer()
     {
         Console.WriteLine();
-        UtilitairesConsole.WriteColor("\r\nSouhaitez-vous générer un nouveau mot de passe ?\r\n", ConsoleColor.Cyan, true);
-        UtilitairesConsole.WriteColor("1. Oui, avec les mêmes critères", ConsoleColor.Cyan, false);
-        UtilitairesConsole.WriteColor("2. Oui, avec de nouveaux critères", ConsoleColor.Cyan, false);
-        UtilitairesConsole.WriteColor("3. Non, quitter l'application", ConsoleColor.Cyan, false);
-        UtilitairesConsole.WriteColor("\r\nChoix_____________________________________: ", ConsoleColor.Cyan, true);
-
+        UtilitairesConsole.WriteColor("\r\nSouhaitez-vous générer un nouveau mot de passe ?\r\n", ConsoleColor.Blue, true);
+        UtilitairesConsole.WriteColor("1. Oui, avec les mêmes critères", ConsoleColor.Blue, false);
+        UtilitairesConsole.WriteColor("2. Oui, avec de nouveaux critères", ConsoleColor.Blue, false);
+        UtilitairesConsole.WriteColor("3. Non, quitter l'application", ConsoleColor.Blue, false);
+        UtilitairesConsole.WriteColor("\r\nChoix_____________________________________: ", ConsoleColor.Blue, true);
     }
 }
