@@ -1,26 +1,10 @@
 ﻿namespace GenerateurDeMotsDePasseConsoleV2;
 
-public class Critere(int longueur, bool ajoutMajuscule, bool ajoutMinuscule, bool ajoutChiffre, bool ajoutSymbole)
+internal class Critere(int longueur, bool ajoutMajuscule, bool ajoutMinuscule, bool ajoutChiffre, bool ajoutSymbole)
 {
-    public int Longueur { get; } = longueur;
-    public bool AjoutMajuscule { get; } = ajoutMajuscule;
-    public bool AjoutMinuscule { get; } = ajoutMinuscule;
-    public bool AjoutChiffre { get; } = ajoutChiffre;
-    public bool AjoutSymbole { get; } = ajoutSymbole;
-
-    // TODO : Cette méthode n'a rien à faire ici, c'est ton objet principal, pourquoi doit il porter de l'intéraction avec l'utilisateur ?
-    internal static Critere DemanderChoixType(int longueur)
-    {
-        while (true)
-        {
-            bool ajoutMajuscule = UtilitairesConsole.DemanderOuiNon("\r\nInclure des lettres majuscules ?____(o/n) : ");
-            bool ajoutMinuscule = UtilitairesConsole.DemanderOuiNon("Inclure des lettres minuscules ?____(o/n) : ");
-            bool ajoutChiffre = UtilitairesConsole.DemanderOuiNon("Inclure des chiffres ?______________(o/n) : ");
-            bool ajoutSymbole = UtilitairesConsole.DemanderOuiNon("Inclure des symboles ?______________(o/n) : ");
-
-            // TODO : Tu peux améliorer cette condition, sans mettre de ! au départ, comment ?
-            if (!(ajoutMajuscule == false && ajoutMinuscule == false && ajoutChiffre == false && ajoutSymbole == false))
-                return new(longueur, ajoutMajuscule, ajoutMinuscule, ajoutChiffre, ajoutSymbole);
-        }
-    }
+    internal int Longueur { get; } = longueur;
+    internal bool AjoutMajuscule { get; } = ajoutMajuscule;
+    internal bool AjoutMinuscule { get; } = ajoutMinuscule;
+    internal bool AjoutChiffre { get; } = ajoutChiffre;
+    internal bool AjoutSymbole { get; } = ajoutSymbole;
 }

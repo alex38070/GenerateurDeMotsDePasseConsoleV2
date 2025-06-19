@@ -1,10 +1,11 @@
 ﻿namespace GenerateurDeMotsDePasseConsoleV2;
 
-public class Program
+internal class Program
 {
-    static void Main()
+    internal static void Main()
     {
-        GenerateurMotDePasses generateurMdp = new();
-        generateurMdp.GenererMotDePasse();
+        UtilitaireConsole.ColorerConsole();
+        GenerateurMotDePasse generateurMdp = new();
+        generateurMdp.Lancer();
     }
 }
