@@ -1,18 +1,21 @@
 ﻿namespace GenerateurDeMotsDePasseConsoleV2;
+
+// TODO : Je crois qu'on classe, ce n'est jamais au pluriel (+ respecter toutes les conventions de nommages, Classe, Méthode, Propriété, Attribut, Variables, etc.)
 internal class GenerateurMotDePasses
 {
-
+    // TODO : Tu ne vois pas que la variable est en gris ?
     private readonly Random _random = new(); // readonly impossible de la modifier.
-    internal const string lettreMajuscule = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";  // Majuscules
-    internal const string lettreMinuscule = "abcdefghijklmnopqrstuvwxyz";  // Minuscules
-    internal const string chiffre = "0123456789";                     // Chiffres
-    internal const string symbole = "!@#$%^&*_-+=";                  // Symboles
+    internal const string lettreMajuscule = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";   // Majuscules
+    internal const string lettreMinuscule = "abcdefghijklmnopqrstuvwxyz";   // Minuscules
+    internal const string chiffre = "0123456789";                           // Chiffres
+    internal const string symbole = "!@#$%^&*_-+=";                         // Symboles
 
     internal void GenererMotDePasse()
     {
+        // TODO : Est ce que c'est possible de ne pas avoir à déclarer ces variables en haut ?
         Critere _critere;
-
         string choixUtilisateur;
+
         UtilitairesConsole.AffichageDate();
 
         do
@@ -22,7 +25,9 @@ internal class GenerateurMotDePasses
 
             do
             {
-                AffichageMdp(GenererMotDePasseEtRetourListMelanger(_critere));
+                List<string> mdp = GenererMotDePasse(_critere);
+                AffichageMdp(mdp);
+
                 UtilitairesConsole.ListChoixRejouer();
 
                 choixUtilisateur = UtilitairesConsole.DemanderRejouer();
@@ -34,7 +39,7 @@ internal class GenerateurMotDePasses
         Console.WriteLine("\r\nMerci au revoir");
     }
 
-    private List<string> GenererMotDePasseEtRetourListMelanger(Critere _critere)
+    private List<string> GenererMotDePasse(Critere _critere)
     {
         Random _random = new();
         List<string> listMotDePasseBrut = [];
@@ -42,6 +47,7 @@ internal class GenerateurMotDePasses
 
         if (_critere.AjoutMajuscule)
         {
+            // TODO : Est ce qu'il n'y a pas quelque chose que tu fais systématiquement concernant le random que tu pourrais extraire dans une méthode ?
             listMotDePasseBrut.Add(lettreMajuscule.Substring(_random.Next(lettreMajuscule.Length), 1));
             listMotDePasseParent.Add(lettreMajuscule);
         }
@@ -64,6 +70,7 @@ internal class GenerateurMotDePasses
             listMotDePasseParent.Add(symbole);
         }
 
+        // TODO : Intérêt du DO WHILE ?
         do
         {
             string choixList = listMotDePasseParent[_random.Next(listMotDePasseParent.Count)];
@@ -72,6 +79,7 @@ internal class GenerateurMotDePasses
 
         } while (listMotDePasseBrut.Count < _critere.Longueur);
 
+        // TODO : Quel est l'intérêt de cette ligne ?
         IOrderedEnumerable<string> motDePasseMelanger = listMotDePasseBrut.OrderBy(item => Random.Shared.Next());
 
         return listMotDePasseBrut;
@@ -82,8 +90,8 @@ internal class GenerateurMotDePasses
         UtilitairesConsole.WriteColor("\r\nLe mot de passe généré est________________: ", ConsoleColor.Blue, true);
 
         foreach (string CaractereMdp in motDePasseMelanger)
-            Console.Write(CaractereMdp);
+            Console.Write(CaractereMdp); // TODO : Pas de couleur ici ?
 
-        motDePasseMelanger.Clear();
+        motDePasseMelanger.Clear(); // TODO : Comment s'en passer ?
     }
 }

@@ -8,6 +8,7 @@ public class Critere(int longueur, bool ajoutMajuscule, bool ajoutMinuscule, boo
     public bool AjoutChiffre { get; } = ajoutChiffre;
     public bool AjoutSymbole { get; } = ajoutSymbole;
 
+    // TODO : Cette méthode n'a rien à faire ici, c'est ton objet principal, pourquoi doit il porter de l'intéraction avec l'utilisateur ?
     internal static Critere DemanderChoixType(int longueur)
     {
         while (true)
@@ -17,6 +18,7 @@ public class Critere(int longueur, bool ajoutMajuscule, bool ajoutMinuscule, boo
             bool ajoutChiffre = UtilitairesConsole.DemanderOuiNon("Inclure des chiffres ?______________(o/n) : ");
             bool ajoutSymbole = UtilitairesConsole.DemanderOuiNon("Inclure des symboles ?______________(o/n) : ");
 
+            // TODO : Tu peux améliorer cette condition, sans mettre de ! au départ, comment ?
             if (!(ajoutMajuscule == false && ajoutMinuscule == false && ajoutChiffre == false && ajoutSymbole == false))
                 return new(longueur, ajoutMajuscule, ajoutMinuscule, ajoutChiffre, ajoutSymbole);
         }
