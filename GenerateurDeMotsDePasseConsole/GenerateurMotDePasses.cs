@@ -1,15 +1,12 @@
 ﻿namespace GenerateurDeMotsDePasseConsoleV2;
 internal class GenerateurMotDePasses
 {
+
     private readonly Random _random = new(); // readonly impossible de la modifier.
-
-    internal List<string> lettreMinuscule = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-
-    internal List<string> lettreMajuscule = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-
-    internal List<string> chiffre = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-
-    internal List<string> symbole = ["/", "!", "+", "?", "&", "$", "<", "=", ">"];
+    internal const string lettreMajuscule = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";  // Majuscules
+    internal const string lettreMinuscule = "abcdefghijklmnopqrstuvwxyz";  // Minuscules
+    internal const string chiffre = "0123456789";                     // Chiffres
+    internal const string symbole = "!@#$%^&*_-+=";                  // Symboles
 
     internal void GenererMotDePasse()
     {
@@ -41,36 +38,36 @@ internal class GenerateurMotDePasses
     {
         Random _random = new();
         List<string> listMotDePasseBrut = [];
-        List<List<string>> listMotDePasseParent = [];
+        List<string> listMotDePasseParent = [];
 
         if (_critere.AjoutMajuscule)
         {
-            listMotDePasseBrut.Add(lettreMajuscule[_random.Next(lettreMajuscule.Count)]);
+            listMotDePasseBrut.Add(lettreMajuscule.Substring(_random.Next(lettreMajuscule.Length), 1));
             listMotDePasseParent.Add(lettreMajuscule);
         }
 
         if (_critere.AjoutMinuscule)
         {
-            listMotDePasseBrut.Add(lettreMinuscule[_random.Next(lettreMinuscule.Count)]);
-            listMotDePasseParent.Add(lettreMinuscule);
+            listMotDePasseBrut.Add(lettreMinuscule.Substring(_random.Next(lettreMajuscule.Length), 1));
+            listMotDePasseParent.Add(lettreMajuscule);
         }
 
         if (_critere.AjoutChiffre)
         {
-            listMotDePasseBrut.Add(chiffre[_random.Next(chiffre.Count)]);
+            listMotDePasseBrut.Add(chiffre.Substring(_random.Next(chiffre.Length), 1));
             listMotDePasseParent.Add(chiffre);
         }
 
         if (_critere.AjoutSymbole)
         {
-            listMotDePasseBrut.Add(symbole[_random.Next(symbole.Count)]);
+            listMotDePasseBrut.Add(symbole.Substring(_random.Next(symbole.Length), 1));
             listMotDePasseParent.Add(symbole);
         }
 
         do
         {
-            List<string> choixList = listMotDePasseParent[_random.Next(listMotDePasseParent.Count)];
-            string element = choixList[_random.Next(choixList.Count)];
+            string choixList = listMotDePasseParent[_random.Next(listMotDePasseParent.Count)];
+            string element = choixList.Substring(_random.Next(choixList.Length), 1);
             listMotDePasseBrut.Add(element);
 
         } while (listMotDePasseBrut.Count < _critere.Longueur);
